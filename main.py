@@ -76,14 +76,7 @@ if st.button('Analizar'):
     try:
         stock_info, news = get_stock_data_from_db(symbol)
     except:
-        # st.error('No se encontró información para este stock.')
-        st.subheader('Información del Stock')
-        st.write(f"Nombre: {stock_info[0]}")
-        st.write(f"Sector: {stock_info[1]}")
-        st.write(f"Industria: {stock_info[2]}")
-        st.write(f"Capitalización de mercado: {stock_info[3]}")
-        st.write(f"Ratio P/E: {stock_info[4]}")
-        stock_info, news = get_stock_data_from_db(symbol)
+        st.error('No se encontró información para este stock.')
         
 
     if stock_info:
@@ -112,4 +105,13 @@ if st.button('Analizar'):
 
 # Agregar información sobre el uso de IA
 st.sidebar.title('Acerca de')
+with st.sidebar:
+    # Crear una entrada de texto para la clave API
+    api_key = st.text_input("Ingrese su clave API", type="password")
+
+    # Mostrar la clave API si se ingresa (para propósitos de prueba, en producción no mostrarías la clave)
+    if api_key:
+        st.write("Clave API ingresada correctamente.")
+        os.environ["NVIDIA_API_KEY"] = api_key
+
 st.sidebar.info('Esta aplicación utiliza IA para analizar stocks. El análisis se basa en datos históricos, información de la empresa y noticias recientes. La IA proporciona un resumen y recomendaciones, pero no debe considerarse como asesoramiento financiero profesional.')

@@ -11,7 +11,6 @@ from langchain_nvidia_ai_endpoints import ChatNVIDIA
 # Configuración del cliente OpenAI para NVIDIA
 llm = ChatNVIDIA(model="meta/llama3-70b-instruct")
 
-
 def query_historical_data(symbol):
     conn = sqlite3.connect('stock_data.db')
     c = conn.cursor()
@@ -157,18 +156,8 @@ def summarize_news(news_list):
     """Resume las noticias y analiza su sentimiento general."""
     news_text = "\n".join([f"Título: {title}\nResumen: {summary}" for title, summary in news_list])
     prompt = f"Resume las siguientes noticias y proporciona un análisis general del sentimiento:\n{news_text}\nResumen y análisis:"
-    
-    # completion = client.chat.completions.create(
-    #     model="meta/llama3-70b-instruct",
-    #     messages=[{"role": "user", "content": prompt}],
-    #     temperature=0.5,
-    #     top_p=1,
-    #     max_tokens=1024
-    # )
-    
-    # return completion.choices[0].message.content.strip()
+
     completion = llm.invoke(prompt)
-    
     return str(completion.content)
 
 def analyze_stock(symbol):
