@@ -1,0 +1,5 @@
+openai==1.35.3
+yfinance==0.2.40
+langchain==0.2.5
+praw==7.7.1
+langchain-nvidia-ai-endpoints
